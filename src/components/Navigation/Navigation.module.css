@@ -1,0 +1,8 @@
+.nav {
+  text-decoration: none;
+  color: green;
+}
+
+.nav:global(.active) {
+  color: red;
+}
