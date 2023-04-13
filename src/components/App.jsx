@@ -9,25 +9,27 @@ import { EventDetailsPage } from 'pages/EventDetailsPage/EventDetailsPage';
 export const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Homepage />} />
-          <Route path="events" element={<EventsPage />}>
-            <Route path=":id" element={<EventSubPage />} />
+      <BrowserRouter basename="/extra_class_090423">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Homepage />} />
+            <Route path="events" element={<EventsPage />}>
+              <Route path=":id" element={<EventSubPage />} />
+            </Route>
+            <Route path="search" element={<SearchPage />}>
+              <Route path=":id" element={<EventSubPage />} />
+            </Route>
+            <Route
+              path="events/:id/details"
+              element={<EventDetailsPage />}
+            ></Route>
+            <Route
+              path="search/:id/details"
+              element={<EventDetailsPage />}
+            ></Route>
           </Route>
-          <Route path="search" element={<SearchPage />}>
-            <Route path=":id" element={<EventSubPage />} />
-          </Route>
-          <Route
-            path="events/:id/details"
-            element={<EventDetailsPage />}
-          ></Route>
-          <Route
-            path="search/:id/details"
-            element={<EventDetailsPage />}
-          ></Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
