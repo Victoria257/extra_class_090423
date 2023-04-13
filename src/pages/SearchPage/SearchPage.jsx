@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { fetchEventsByName } from 'servises/eventsApi';
+import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { fetchEventsByName } from 'services/eventsApi';
 
 export const SearchPage = () => {
   const [events, setEvents] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('queryEvent');
+  const location = useLocation();
 
   useEffect(() => {
     if (!searchQuery) return;
     fetchEventsByName(searchQuery)
-      .then(res => setEvents(res))
+      .then(res => {
+        setEvents(res);
+      })
       .catch(error => console.log(error));
   }, [searchQuery]);
 
@@ -30,10 +33,13 @@ export const SearchPage = () => {
       <ul>
         {events.map(({ name, id }) => (
           <li key={id}>
-            <Link>{name}</Link>
+            <Link to={id} state={{ from: location }}>
+              {name}
+            </Link>
           </li>
         ))}
       </ul>
+      <Outlet />
     </div>
   );
 };
